@@ -81,7 +81,7 @@ struct ret_info syscall(uint64_t syscall_num, uint64_t arg0, uint64_t arg1, uint
                     uint64_t pa=((get_pte(page_table,vma->vm_start)>>10)<<12) | (vma->vm_start & 0xfff);//get_pte得到的是页号,[53:10]才是PPN
                     //printf("in_unmap_pa:0x%016lx\n",pa);
                     free_pages(pa);
-                    create_mapping(page_table,vma->vm_start,pa,end-start+1,PTE_U | PTE_R | PTE_W | PTE_X);//将这部分va的页表项值V位置0
+                    create_mapping(page_table,vma->vm_start,pa,end-start+1,0);//将这部分va的页表项值V位置0
                 }
                 //printf("unmap success x%016lx\n",vma->vm_start);
                 list_del(&vma->vm_list);
